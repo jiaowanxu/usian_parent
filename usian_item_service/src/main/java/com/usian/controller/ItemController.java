@@ -20,7 +20,12 @@ public class ItemController {
         return itemService.selectItemInfo(id);
     }
 
-    //查询所有商品并分页
+    /**
+     * 查询所有商品并分页
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping("/selectTbItemAllByPage")
     public PageResult selectTbItemAllByPage(@RequestParam Integer page,@RequestParam Integer rows){
         return itemService.selectTbItemAllByPage(page,rows);
