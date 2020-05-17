@@ -7,4 +7,6 @@ public interface ItemService {
     TbItem selectItemInfo(Long id);
 
     PageResult selectTbItemAllByPage(Integer page, Integer rows);
+
+    Integer insertTbItem(TbItem tbItem, String desc, String itemParams);
 }

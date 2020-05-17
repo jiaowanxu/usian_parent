@@ -15,7 +15,11 @@ public class ItemController {
     @Autowired
     private ItemServiceFeign itemServiceFeign;
 
-    //商品信息查询
+    /**
+     * 商品信息查询
+     * @param id
+     * @return
+     */
     @RequestMapping("/selectItemInfo")
     public Result selectItemInfo(Long id){
         TbItem tbItem = itemServiceFeign.selectItemInfo(id);
@@ -26,7 +30,12 @@ public class ItemController {
         }
     }
 
-    //查询商品并分页处理
+    /**
+     * 查询商品并分页处理
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping("/selectTbItemAllByPage")
     public Result selectTbItemAllByPage(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue ="2" ) Integer rows){
         PageResult pageResult=itemServiceFeign.selectTbItemAllByPage(page,rows);
@@ -34,5 +43,21 @@ public class ItemController {
             return Result.ok(pageResult);
         }
         return Result.error("查无结果");
+    }
+
+    /**
+     * 添加商品
+     * @param tbItem
+     * @param desc
+     * @param itemParams
+     * @return
+     */
+    @RequestMapping("/insertTbItem")
+    public Result insertTbItem(TbItem tbItem,String desc,String itemParams){
+        Integer insertTbItemNum=itemServiceFeign.insertTbItem(tbItem,desc,itemParams);
+        if (insertTbItemNum==3){
+            return Result.ok();
+        }
+        return Result.error("添加失败");
     }
 }
