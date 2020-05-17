@@ -28,11 +28,14 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public PageResult selectTbItemAllByPage(Integer page, Integer rows) {
         PageHelper.startPage(page,rows);
+
         TbItemExample example = new TbItemExample();
         TbItemExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo((byte)1);
         List<TbItem> tbItemList = tbItemMapper.selectByExample(example);
+
         PageInfo<TbItem> PageInfo = new PageInfo<>(tbItemList);
+
         PageResult pageResult = new PageResult();
         pageResult.setPageIndex(page);
         pageResult.setTotalPage(PageInfo.getTotal());
