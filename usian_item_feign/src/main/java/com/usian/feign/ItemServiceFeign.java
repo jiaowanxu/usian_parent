@@ -27,4 +27,13 @@ public interface ItemServiceFeign {
 
     @RequestMapping("/service/item/insertTbItem")
     Integer insertTbItem(@RequestBody TbItem tbItem, @RequestParam String desc, @RequestParam String itemParams);
+
+    @RequestMapping("/service/itemParam/selectItemParamAll")
+    PageResult selectItemParamAll(@RequestParam Integer page, @RequestParam Integer rows);
+
+    @RequestMapping("/service/itemParam/insertItemParam")
+    Integer insertItemParam(@RequestParam Long itemCatId, @RequestParam String paramData);
+
+    @RequestMapping("/service/itemParam/deleteItemParamById")
+    Integer deleteItemParamById(@RequestParam Long id);
 }
