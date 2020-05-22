@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/backend/content")
 public class ContentCategoryController {
+
     @Autowired
     private ContentServiceFeign contentServiceFeign;
 
@@ -29,4 +30,33 @@ public class ContentCategoryController {
         }
         return Result.error("查无结果");
     }
+
+    /**
+     * 添加内容分类
+     * @param tbContentCategory
+     * @return
+     */
+    @RequestMapping("/insertContentCategory")
+    public Result insertContentCategory(TbContentCategory tbContentCategory){
+        Integer tbContentCategoryNum=contentServiceFeign.insertContentCategory(tbContentCategory);
+        if (tbContentCategoryNum==1){
+            return  Result.ok();
+        }
+        return Result.error("添加失败");
+    }
+
+    /**
+     * 删除内容分类
+     * @param categoryId
+     * @return
+     */
+    @RequestMapping("deleteContentCategoryById")
+    public Result deleteContentCategoryById(Long categoryId){
+        Integer status=contentServiceFeign.deleteContentCategoryById(categoryId);
+        if (status==200){
+            return Result.ok();
+        }
+        return Result.error("删除失败");
+    }
+
 }
