@@ -50,13 +50,27 @@ public class ContentCategoryController {
      * @param categoryId
      * @return
      */
-    @RequestMapping("deleteContentCategoryById")
+    @RequestMapping("/deleteContentCategoryById")
     public Result deleteContentCategoryById(Long categoryId){
         Integer status=contentServiceFeign.deleteContentCategoryById(categoryId);
         if (status==200){
             return Result.ok();
         }
         return Result.error("删除失败");
+    }
+
+    /**
+     * 修改内容分类
+     * @param tbContentCategory
+     * @return
+     */
+    @RequestMapping("/updateContentCategory")
+    public Result updateContentCategory(TbContentCategory tbContentCategory){
+        Integer updateContentCategory=contentServiceFeign.updateContentCategory(tbContentCategory);
+        if (updateContentCategory==1){
+            return Result.ok();
+        }
+        return Result.error("修改失败");
     }
 
 }

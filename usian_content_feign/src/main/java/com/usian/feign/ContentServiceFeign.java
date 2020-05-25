@@ -31,4 +31,7 @@ public interface ContentServiceFeign {
 
     @RequestMapping("/service/content/selectFrontendContentByAD")
     List<AdNode> selectFrontendContentByAD();
+
+    @RequestMapping("/service/contentCategory/updateContentCategory")
+    Integer updateContentCategory(TbContentCategory tbContentCategory);
 }

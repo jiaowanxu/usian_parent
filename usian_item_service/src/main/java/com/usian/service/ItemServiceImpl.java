@@ -98,5 +98,10 @@ public class ItemServiceImpl implements ItemService {
         return tbItemNum+tbItemDescNum+itemParamItemNum;
     }
 
+    @Override
+    public Integer deleteItemById(Long itemId) {
+        return tbItemMapper.deleteByPrimaryKey(itemId);
+    }
+
 
 }

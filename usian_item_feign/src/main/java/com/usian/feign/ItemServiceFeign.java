@@ -40,4 +40,7 @@ public interface ItemServiceFeign {
 
     @RequestMapping("/service/itemCategory/selectItemCategoryAll")
     CatResult selectItemCategoryAll();
+
+    @RequestMapping("/service/item/deleteItemById")
+    Integer deleteItemById(@RequestParam Long itemId);
 }

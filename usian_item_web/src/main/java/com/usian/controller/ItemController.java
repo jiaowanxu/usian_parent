@@ -60,4 +60,18 @@ public class ItemController {
         }
         return Result.error("添加失败");
     }
+
+    /**
+     * 删除商品
+     * @param itemId
+     * @return
+     */
+    @RequestMapping("/deleteItemById")
+    public Result deleteItemById(Long itemId){
+        Integer itemIdNum=itemServiceFeign.deleteItemById(itemId);
+        if (itemIdNum==1){
+            return Result.ok();
+        }
+        return Result.error("删除失败");
+    }
 }

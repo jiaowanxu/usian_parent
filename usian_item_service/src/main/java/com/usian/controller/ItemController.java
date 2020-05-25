@@ -47,4 +47,14 @@ public class ItemController {
     public Integer insertTbItem(@RequestBody TbItem tbItem,@RequestParam String desc,@RequestParam String itemParams){
         return itemService.insertTbItem(tbItem,desc,itemParams);
     }
+
+    /**
+     * 删除商品
+     * @param itemId
+     * @return
+     */
+    @RequestMapping("/deleteItemById")
+    Integer deleteItemById(@RequestParam Long itemId){
+        return itemService.deleteItemById(itemId);
+    }
 }
