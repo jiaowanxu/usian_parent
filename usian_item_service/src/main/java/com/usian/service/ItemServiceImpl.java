@@ -8,6 +8,7 @@ import com.usian.mapper.TbItemParamItemMapper;
 import com.usian.pojo.*;
 import com.usian.utils.IDUtils;
 import com.usian.utils.PageResult;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,8 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private TbItemParamItemMapper TbItemParamItemMapper;
 
+    @Autowired
+    private AmqpTemplate amqpTemplate;
     /**
      * 根据商品id进行商品查询
      * @param id
@@ -95,7 +98,9 @@ public class ItemServiceImpl implements ItemService {
         tbItemParamItem.setUpdated(date);
         Integer itemParamItemNum = TbItemParamItemMapper.insertSelective(tbItemParamItem);
 
-        return tbItemNum+tbItemDescNum+itemParamItemNum;
+        //添加商品发布消息到mq
+        amqpTemplate.convertAndSend("item_exchange","item.add",itemId);
+        return tbItemNum + tbItemDescNum + itemParamItemNum;
     }
 
     @Override
