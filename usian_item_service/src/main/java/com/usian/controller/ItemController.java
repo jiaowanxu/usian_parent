@@ -1,6 +1,7 @@
 package com.usian.controller;
 
 import com.usian.pojo.TbItem;
+import com.usian.pojo.TbItemDesc;
 import com.usian.service.ItemService;
 import com.usian.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,15 @@ public class ItemController {
     @RequestMapping("/deleteItemById")
     Integer deleteItemById(@RequestParam Long itemId){
         return itemService.deleteItemById(itemId);
+    }
+
+    /**
+     * 根据商品id查询商品描述
+     * @param itemId
+     * @return
+     */
+    @RequestMapping("/selectItemDescByItemId")
+    public TbItemDesc selectItemDescByItemId(Long itemId){
+        return itemService.selectItemDescByItemId(itemId);
     }
 }

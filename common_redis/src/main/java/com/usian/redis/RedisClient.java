@@ -24,7 +24,7 @@ public class RedisClient {
      * @param time   时间（秒）
      * @return
      */
-    public boolean expire(String key,Long time){
+    public boolean expire(String key, Long time){
         if (time>0){
             redisTemplate.expire(key,time, TimeUnit.SECONDS);
             return true;
@@ -256,6 +256,22 @@ public class RedisClient {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    /**
+     * 分布式锁
+     * @param key
+     * @param value
+     * @param time
+     * @return
+     */
+    public Boolean setnx(String key, Object value, long time) {
+        try {
+            return redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
