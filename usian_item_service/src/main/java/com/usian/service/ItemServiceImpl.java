@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
     @Value("${SETNX_BASC_LOCK_KEY}")
     private String SETNX_BASC_LOCK_KEY;
 
-    @Value("${SETNX_DESC_LOCK_KEY\n}")
+    @Value("${SETNX_DESC_LOCK_KEY}")
     private String SETNX_DESC_LOCK_KEY;
 
     /**
