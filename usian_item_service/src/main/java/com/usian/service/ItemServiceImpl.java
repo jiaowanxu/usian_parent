@@ -61,30 +61,30 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
-    public TbItem selectItemInfo(Long id){
+    public TbItem selectItemInfo(Long itemId){
         //1、先查询redis，如果有就直接返回
-        TbItem tbItem= (TbItem) redisClient.get(ITEM_INFO + ":" + id + ":" + BASE);
+        TbItem tbItem= (TbItem) redisClient.get(ITEM_INFO + ":" + itemId + ":" + BASE);
         if (tbItem!=null){
             return tbItem;
         }
         /*****************************************解决缓存击穿************************************/
         //获取锁成功后
-        if (redisClient.setnx(SETNX_BASC_LOCK_KEY+":"+id,id,30L)){
+        if (redisClient.setnx(SETNX_BASC_LOCK_KEY+":"+itemId,itemId,30L)){
             //2、查不到就再查询MySQL，并把查询结果返回到redis中
-            tbItem=tbItemMapper.selectByPrimaryKey(id);
+            tbItem=tbItemMapper.selectByPrimaryKey(itemId);
             /*****************************************解决缓存穿透************************************/
             if(tbItem == null){
                 //把数据保存到缓存
-                redisClient.set(ITEM_INFO + ":" + id + ":"+ BASE,tbItem);
+                redisClient.set(ITEM_INFO + ":" + itemId + ":"+ BASE,tbItem);
                 //设置缓存的有效期
-                redisClient.expire(ITEM_INFO + ":" + id + ":"+ BASE,ITEM_INFO_EXPIRE);
+                redisClient.expire(ITEM_INFO + ":" + itemId + ":"+ BASE,ITEM_INFO_EXPIRE);
             }else {
                 //把空对象保存到缓存
-                redisClient.set(ITEM_INFO + ":" + id + ":"+ BASE,null);
+                redisClient.set(ITEM_INFO + ":" + itemId + ":"+ BASE,null);
                 //设置缓存的有效期
-                redisClient.expire(ITEM_INFO + ":" + id + ":"+ BASE,30L);
+                redisClient.expire(ITEM_INFO + ":" + itemId + ":"+ BASE,30L);
             }
-            redisClient.del(SETNX_BASC_LOCK_KEY+":"+id);
+            redisClient.del(SETNX_BASC_LOCK_KEY+":"+itemId);
             return tbItem;
         }else {
             try {
@@ -92,7 +92,7 @@ public class ItemServiceImpl implements ItemService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            return selectItemInfo(id);
+            return selectItemInfo(itemId);
         }
     }
 

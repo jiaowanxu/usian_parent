@@ -17,12 +17,12 @@ public class ItemController {
 
     /**
      * 商品信息查询
-     * @param id
+     * @param itemId
      * @return
      */
     @RequestMapping("/selectItemInfo")
-    public Result selectItemInfo(Long id){
-        TbItem tbItem = itemServiceFeign.selectItemInfo(id);
+    public Result selectItemInfo(Long itemId){
+        TbItem tbItem = itemServiceFeign.selectItemInfo(itemId);
         if (tbItem != null){
             return Result.ok(tbItem);
         }else{

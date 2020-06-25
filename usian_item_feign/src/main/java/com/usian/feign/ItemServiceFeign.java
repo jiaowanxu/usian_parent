@@ -13,7 +13,7 @@ import java.util.List;
 @FeignClient(value = "usian-item-service")
 public interface ItemServiceFeign {
     @RequestMapping("/service/item/selectItemInfo")
-    TbItem selectItemInfo(@RequestParam("id") Long id);
+    TbItem selectItemInfo(@RequestParam("itemId") Long itemId);
 
     @RequestMapping("/service/item/selectTbItemAllByPage")
     PageResult selectTbItemAllByPage(@RequestParam Integer page, @RequestParam Integer rows);

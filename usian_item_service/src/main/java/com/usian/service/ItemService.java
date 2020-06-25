@@ -5,7 +5,7 @@ import com.usian.pojo.TbItemDesc;
 import com.usian.utils.PageResult;
 
 public interface ItemService {
-    TbItem selectItemInfo(Long id);
+    TbItem selectItemInfo(Long itemId);
 
     PageResult selectTbItemAllByPage(Integer page, Integer rows);
 

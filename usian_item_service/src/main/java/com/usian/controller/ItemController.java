@@ -22,8 +22,8 @@ public class ItemController {
      * @return
      */
     @RequestMapping("/selectItemInfo")
-    public TbItem selectItemInfo(Long id){
-        return itemService.selectItemInfo(id);
+    public TbItem selectItemInfo(Long itemId){
+        return itemService.selectItemInfo(itemId);
     }
 
     /**
