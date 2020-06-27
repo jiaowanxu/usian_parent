@@ -14,4 +14,6 @@ public interface ItemService {
     Integer deleteItemById(Long itemId);
 
     TbItemDesc selectItemDescByItemId(Long itemId);
+
+    Integer updateTbItemByOrderId(String orderId);
 }
